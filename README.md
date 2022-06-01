@@ -128,7 +128,7 @@ Components:
 
 ```javascript
 {
-  email: { type: String, required: true, unique: true },
+  username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 	playerProfile: { type: Schema.Types.ObjectId, ref:'Player' },
   createdProjects: [ { type: Schema.Types.ObjectId, ref:'Project' } ]
@@ -140,8 +140,8 @@ Components:
 ```javascript
  {
    name: { type: String, required: true },
-   img: { type: String },
-   categorie: {type: String},
+   img: { type: String, required: true },
+   categorie: {type: String, required: true},
    players: [ { type: Schema.Types.ObjectId, ref:'Player' } ]
 
  }
@@ -151,34 +151,36 @@ Components:
 
 ```javascript
 {
-  userName: { type: String,},
-  profileImage: { type: String },
+  userName: { type: String, required: true},
+  profileImage: { type: String, required: true },
 }
 ```
 
 <br>
 
-## API Endpoints (backend routes)
+## Backend routes
 
-| HTTP Method | URL                 | Request Body                | Success status | Error Status | Description                                                                                                                     |
-| ----------- | ------------------- | --------------------------- | -------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| GET         | `/auth/profile `    | Saved session               | 200            | 404          | Check if user is logged in and return profile page                                                                              |
-| POST        | `/auth/signup`      | {name, email, password}     | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
-| POST        | `/auth/login`       | {username, password}        | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session              |
-| POST        | `/auth/logout`      |                             | 204            | 400          | Logs out the user                                                                                                               |
-| GET         | `/api/projects`     |                             |                | 400          | Show all projects                                                                                                               |
-| GET         | `/api/projects/:id` |                             |                |              | Show specific tournament                                                                                                        |
-| POST        | `/api/projects`     | { name, img, players }      | 201            | 400          | Create and save a new tournament                                                                                                |
-| PUT         | `/api/projects/:id` | { name, img, players }      | 200            | 400          | edit tournament                                                                                                                 |
-| DELETE      | `/api/projects/:id` |                             | 201            | 400          | delete tournament                                                                                                               |
-| GET         | `/api/players/:id`  |                             |                |              | show specific player                                                                                                            |
-| POST        | `/api/players`      | { name, img, tournamentId } | 200            | 404          | add player                                                                                                                      |
-| PUT         | `/api/players/:id`  | { name, img }               | 201            | 400          | edit player                                                                                                                     |
-| DELETE      | `/api/players/:id`  |                             | 200            | 400          | delete player                                                                                                                   |
+| HTTP Method | URL                 | Request Body                     | Success status | Error Status | Description                                                                                                                     |
+| ----------- | ------------------- | -------------------------------- | -------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| GET         | `/auth/profile `    | Saved session                    | 200            | 404          | Check if user is logged in and return profile page                                                                              |
+| POST        | `/auth/signup`      | {username, password}             | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
+| POST        | `/auth/login`       | {username, password}             | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session              |
+| POST        | `/auth/logout`      |                                  | 204            | 400          | Logs out the user                                                                                                               |
+| GET         | `/api/projects`     |                                  |                | 400          | Show all projects                                                                                                               |
+| GET         | `/api/projects/:id` |                                  |                |              | Show specific project                                                                                                           |
+| POST        | `/api/projects`     | { name, img, category, players } | 201            | 400          | Create and save a new project                                                                                                   |
+| PUT         | `/api/projects/:id` | { name, img, category, players } | 200            | 400          | edit project                                                                                                                    |
+| DELETE      | `/api/projects/:id` |                                  | 201            | 400          | delete project                                                                                                                  |
+| GET         | `/api/players/:id`  |                                  |                |              | show specific player                                                                                                            |
+| POST        | `/api/players`      | { name, img }                    | 200            | 404          | add player                                                                                                                      |
+| PUT         | `/api/players/:id`  | { name, img }                    | 201            | 400          | edit player                                                                                                                     |
+| DELETE      | `/api/players/:id`  |                                  | 200            | 400          | delete player                                                                                                                   |
 
 <br>
 
-## API's
+## Bonus
+
+- The user being able to comment on the builds card
 
 <br>
 
