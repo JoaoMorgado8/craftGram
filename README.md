@@ -20,6 +20,7 @@ This is an app to help Minecraft players to share their build projects and get i
 - **Add Project:** As a logged in user I can access the add tournament page so that I can create a new tournament.
 - **Edit Project:** As a logged in user I can access the edit tournament page so that I can edit the tournament I created.
 - **Add Players:** As a user I can add players to a project.
+- **Edit Players:** As a user I can add players to a project.
 - **View Project Details:** As a user I want to see the projects details, envolved players list.
 
 <!-- ## Backlog -->
@@ -30,20 +31,22 @@ This is an app to help Minecraft players to share their build projects and get i
 
 ## React Router Routes (React App)
 
-| Path                      | Component            | Permissions                | Behavior                                                  |
-| ------------------------- | -------------------- | -------------------------- | --------------------------------------------------------- |
-| `/login`                  | LoginPage            | anon only `<AnonRoute>`    | Login form, navigates to home page after login.           |
-| `/signup`                 | SignupPage           | anon only `<AnonRoute>`    | Signup form, navigates to home page after signup.         |
-| `/`                       | HomePage             | public `<Route>`           | Home page.                                                |
-| `/user-profile`           | ProfilePage          | user only `<PrivateRoute>` | User and player profile for the current user.             |
-| `/user-profile/edit`      | EditProfilePage      | user only `<PrivateRoute>` | Edit user profile form.                                   |
-| `/player/add`             | CreateTournamentPage | user only `<PrivateRoute>` | Create new tournament form.                               |
-| `/players`                | TournamentListPage   | user only `<PrivateRoute>` | Tournaments list.                                         |
-| `/project/add`            | CreateTournamentPage | user only `<PrivateRoute>` | Create new tournament form.                               |
-| `/projects`               | TournamentListPage   | user only `<PrivateRoute>` | Tournaments list.                                         |
-| `/projects/:projectId`    | TournamentDetailPage | user only `<PrivateRoute>` | Tournament details. Shows players list and other details. |
-| `/project/players/:id`    | PlayerDetailsPage    | user only `<PrivateRoute>` | Single player details.                                    |
-| `/rankings/:tournamentId` | RankingsPage         | user only `<PrivateRoute>` | Tournament rankings list.                                 |
+| Path                   | Component         | Permissions                | Behavior                                                  |
+| ---------------------- | ----------------- | -------------------------- | --------------------------------------------------------- |
+| `/login`               | LoginPage         | anon only `<AnonRoute>`    | Login form, navigates to home page after login.           |
+| `/signup`              | SignupPage        | anon only `<AnonRoute>`    | Signup form, navigates to home page after signup.         |
+| `/`                    | HomePage          | public `<Route>`           | Home page.                                                |
+| `/about`               | AboutPage         | public `<Route>`           | About page.                                               |
+| `/feed`                | FeedPage          | user only `<PrivateRoute>` | User can see comunity projects.                           |
+| `/user-profile`        | ProfilePage       | user only `<PrivateRoute>` | User and player profile for the current user.             |
+| `/user-profile/edit`   | EditProfilePage   | user only `<PrivateRoute>` | Edit user profile form.                                   |
+| `/player/add`          | CreatePlayerPage  | user only `<PrivateRoute>` | Create new player form.                                   |
+| `/players`             | PlayersListPage   | user only `<PrivateRoute>` | Players list.                                             |
+| `/player/edit`         | EditPlayerPage    | user only `<PrivateRoute>` | Edit selected player form.                                |
+| `/project/add`         | CreateProjectPage | user only `<PrivateRoute>` | Create new tournament form.                               |
+| `/projects`            | ProjectsListPage  | user only `<PrivateRoute>` | Tournaments list.                                         |
+| `/projects/:projectId` | ProjectDetailPage | user only `<PrivateRoute>` | Tournament details. Shows players list and other details. |
+| `/project/players/:id` | PlayerDetailsPage | user only `<PrivateRoute>` | Single player details.                                    |
 
 ## Components
 
@@ -55,25 +58,35 @@ Pages:
 
 - HomePage
 
+- AboutPage
+
 - ProfilePage
 
 - EditProfilePage
 
-- CreateTournamentPage
+- CreateProjectPage
 
-- TournamentListPage
+- ProjectsListPage
 
-- TournamentDetailsPage
+- ProjectDetailsPage
+
+- EditProjectPage
+
+- CreatePlayerPage
+
+- EditPlayerPage
 
 - PlayerDetailsPage
-
-- RankingsPage
 
 Components:
 
 - PlayerCard
 - BuildCard
+- AddButton
+- EditButton
+- DeleteButton
 - Navbar
+- Form
 
 ## Services
 
@@ -118,19 +131,18 @@ Components:
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 	playerProfile: { type: Schema.Types.ObjectId, ref:'Player' },
-  createdTournaments: [ { type: Schema.Types.ObjectId, ref:'Tournament' } ]
+  createdProjects: [ { type: Schema.Types.ObjectId, ref:'Project' } ]
 }
 ```
 
-**Tournament model**
+**Project model**
 
 ```javascript
  {
    name: { type: String, required: true },
    img: { type: String },
    players: [ { type: Schema.Types.ObjectId, ref:'Player' } ],
-   games: [],
-   rankings: []
+   categorie: {type: String}
  }
 ```
 
@@ -138,10 +150,8 @@ Components:
 
 ```javascript
 {
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
+  userName: { type: String,},
   profileImage: { type: String },
-  scores: []
 }
 ```
 
@@ -149,25 +159,21 @@ Components:
 
 ## API Endpoints (backend routes)
 
-| HTTP Method | URL                    | Request Body                 | Success status | Error Status | Description                                                                                                                     |
-| ----------- | ---------------------- | ---------------------------- | -------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| GET         | `/auth/profile `       | Saved session                | 200            | 404          | Check if user is logged in and return profile page                                                                              |
-| POST        | `/auth/signup`         | {name, email, password}      | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
-| POST        | `/auth/login`          | {username, password}         | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session              |
-| POST        | `/auth/logout`         |                              | 204            | 400          | Logs out the user                                                                                                               |
-| GET         | `/api/tournaments`     |                              |                | 400          | Show all tournaments                                                                                                            |
-| GET         | `/api/tournaments/:id` |                              |                |              | Show specific tournament                                                                                                        |
-| POST        | `/api/tournaments`     | { name, img, players }       | 201            | 400          | Create and save a new tournament                                                                                                |
-| PUT         | `/api/tournaments/:id` | { name, img, players }       | 200            | 400          | edit tournament                                                                                                                 |
-| DELETE      | `/api/tournaments/:id` |                              | 201            | 400          | delete tournament                                                                                                               |
-| GET         | `/api/players/:id`     |                              |                |              | show specific player                                                                                                            |
-| POST        | `/api/players`         | { name, img, tournamentId }  | 200            | 404          | add player                                                                                                                      |
-| PUT         | `/api/players/:id`     | { name, img }                | 201            | 400          | edit player                                                                                                                     |
-| DELETE      | `/api/players/:id`     |                              | 200            | 400          | delete player                                                                                                                   |
-| GET         | `/api/games`           |                              | 201            | 400          | show games                                                                                                                      |
-| GET         | `/api/games/:id`       |                              |                |              | show specific game                                                                                                              |
-| POST        | `/api/games`           | {player1,player2,winner,img} |                |              | add game                                                                                                                        |
-| PUT         | `/api/games/:id`       | {winner,score}               |                |              | edit game                                                                                                                       |
+| HTTP Method | URL                 | Request Body                | Success status | Error Status | Description                                                                                                                     |
+| ----------- | ------------------- | --------------------------- | -------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| GET         | `/auth/profile `    | Saved session               | 200            | 404          | Check if user is logged in and return profile page                                                                              |
+| POST        | `/auth/signup`      | {name, email, password}     | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
+| POST        | `/auth/login`       | {username, password}        | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session              |
+| POST        | `/auth/logout`      |                             | 204            | 400          | Logs out the user                                                                                                               |
+| GET         | `/api/projects`     |                             |                | 400          | Show all projects                                                                                                               |
+| GET         | `/api/projects/:id` |                             |                |              | Show specific tournament                                                                                                        |
+| POST        | `/api/projects`     | { name, img, players }      | 201            | 400          | Create and save a new tournament                                                                                                |
+| PUT         | `/api/projects/:id` | { name, img, players }      | 200            | 400          | edit tournament                                                                                                                 |
+| DELETE      | `/api/projects/:id` |                             | 201            | 400          | delete tournament                                                                                                               |
+| GET         | `/api/players/:id`  |                             |                |              | show specific player                                                                                                            |
+| POST        | `/api/players`      | { name, img, tournamentId } | 200            | 404          | add player                                                                                                                      |
+| PUT         | `/api/players/:id`  | { name, img }               | 201            | 400          | edit player                                                                                                                     |
+| DELETE      | `/api/players/:id`  |                             | 200            | 400          | delete player                                                                                                                   |
 
 <br>
 
@@ -183,17 +189,17 @@ Components:
 
 ### Trello/Kanban
 
-[Link to your trello board](https://trello.com/b/PBqtkUFX/curasan) or a picture of your physical board
+[Link to your trello board](https://trello.com/b/S3hzFt9E/craftgram) or a picture of your physical board
 
 ### Git
 
 The url to your repository and to your deployed project
 
-[Client repository Link](https://github.com/screeeen/project-client)
+[Client repository Link](https://github.com/JoaoMorgado8/craftGram)
 
-[Server repository Link](https://github.com/screeeen/project-server)
+[Server repository Link]()
 
-[Deployed App Link](http://heroku.com)
+[Deployed App Link]()
 
 ### Slides
 
@@ -201,6 +207,4 @@ The url to your repository and to your deployed project
 
 ### Contributors
 
-FirstName LastName - <github-username> - <linkedin-profile-link>
-
-FirstName LastName - <github-username> - <linkedin-profile-link>
+João Morgado - <github-JoaoMorgado8> - <www.linkedin.com/in/joaoarmorgado>
