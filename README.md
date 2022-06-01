@@ -88,7 +88,7 @@ Components:
 - Navbar
 - Form
 
-## Services
+<!-- ## Services
 
 - **Auth Service**
 
@@ -116,7 +116,7 @@ Components:
 
   - `playerService` :
     - `.createPlayer(id)`
-    - `.getPlayerDetails(id)`
+    - `.getPlayerDetails(id)` -->
 
 <br>
 
@@ -141,8 +141,9 @@ Components:
  {
    name: { type: String, required: true },
    img: { type: String },
-   players: [ { type: Schema.Types.ObjectId, ref:'Player' } ],
-   categorie: {type: String}
+   categorie: {type: String},
+   players: [ { type: Schema.Types.ObjectId, ref:'Player' } ]
+
  }
 ```
 
