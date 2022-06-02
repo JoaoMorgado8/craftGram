@@ -60,6 +60,8 @@ Pages:
 
 - AboutPage
 
+- FeedPage
+
 - ProfilePage
 
 - EditProfilePage
@@ -72,16 +74,11 @@ Pages:
 
 - EditProjectPage
 
-- CreatePlayerPage
-
-- EditPlayerPage
-
-- PlayerDetailsPage
-
 Components:
 
 - PlayerCard
 - BuildCard
+- Comment
 - AddButton
 - EditButton
 - DeleteButton
@@ -141,18 +138,18 @@ Components:
  {
    name: { type: String, required: true },
    img: { type: String, required: true },
-   categorie: {type: String, required: true},
-   players: [ { type: Schema.Types.ObjectId, ref:'Player' } ]
+   category: {type: String, required: true},
+   comments: [ { type: Schema.Types.ObjectId, ref:'comment' } ]
 
  }
 ```
 
-**Player model**
+**Comment model**
 
 ```javascript
 {
-  userName: { type: String, required: true},
-  profileImage: { type: String, required: true },
+  author: { type: Schema.Types.ObjectId, ref:'user' },
+  content: { type: String, required: true },
 }
 ```
 
@@ -180,7 +177,7 @@ Components:
 
 ## Bonus
 
-- The user being able to comment on the builds card
+- The user being able to add other users to specific build project
 
 <br>
 
