@@ -7,8 +7,8 @@ function Navbar() {
 
   return (
     <nav>
-      <Link to="/">
-        <button>Home</button>
+      <Link to="/feedPage">
+        <button>Feed</button>
       </Link>
 
       {isLoggedIn && (

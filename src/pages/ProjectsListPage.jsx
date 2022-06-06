@@ -34,7 +34,7 @@ function ProjectsListPage() {
         return (
           <div key={project._id} className="ProjectCard card">
             <Link to={`/projects/${project._id}`}>
-              <h3>{project.title}</h3>
+              <h3>{project.name}</h3>
             </Link>
           </div>
         );

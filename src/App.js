@@ -8,6 +8,7 @@ import IsAnon from "./components/IsAnon";
 import LoginPage from "./pages/LoginPage";
 import FeedPage from "./pages/FeedPage";
 import ProjectsListPage from "./pages/ProjectsListPage";
+import ProjectDetailsPage from "./pages/ProjectDetailsPage";
 
 function App() {
   return (
@@ -44,6 +45,14 @@ function App() {
           element={
             <IsPrivate>
               <ProjectsListPage />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/projects/:projectId"
+          element={
+            <IsPrivate>
+              <ProjectDetailsPage />
             </IsPrivate>
           }
         />
