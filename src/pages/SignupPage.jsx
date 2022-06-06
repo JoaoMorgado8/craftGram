@@ -57,7 +57,7 @@ function SignupPage() {
           alt="user image"
           name="userImage"
           value={userImage}
-          src={handleUserImage}
+          onChange={handleUserImage}
         />
 
         <button type="submit">Sign Up</button>

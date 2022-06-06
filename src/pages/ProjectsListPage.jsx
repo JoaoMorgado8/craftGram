@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-//import AddProject from "../components/AddProject";
+import AddProject from "../components/AddProject";
 
-function FeedPage() {
+function ProjectsListPage() {
   const [projects, setProjects] = useState([]);
 
   const getAllProjects = async () => {
@@ -18,7 +18,6 @@ function FeedPage() {
         }
       );
       setProjects(response.data);
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -30,14 +29,12 @@ function FeedPage() {
 
   return (
     <div className="ProjectListPage">
+      <AddProject refreshProjects={getAllProjects} />
       {projects.map((project) => {
         return (
           <div key={project._id} className="ProjectCard card">
             <Link to={`/projects/${project._id}`}>
-              <h3>{project.name}</h3>
-              <p>{project.category}</p>
-              <img src={project.img} alt={project.name} />
-              <p>{project.comment}</p>
+              <h3>{project.title}</h3>
             </Link>
           </div>
         );
@@ -46,4 +43,4 @@ function FeedPage() {
   );
 }
 
-export default FeedPage;
+export default ProjectsListPage;
