@@ -31,7 +31,7 @@ function AuthProviderWrapper(props) {
 
     if (storedToken) {
       axios
-        .get(`${process.env.REACT_APP_API_URL}/auth/verify`, {
+        .get(`${process.env.REACT_APP_BASE_URL}/auth/verify`, {
           headers: {
             Authorization: `Bearer ${storedToken}`,
           },
