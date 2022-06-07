@@ -42,7 +42,20 @@ function ProjectDetailsPage() {
     }
   };
 
-  // ternarary item
+  const createComment = async () => {
+    try {
+      const getToken = localStorage.getItem("authToken");
+      let response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/api/projects/${projectId}/comments`,
+        {
+          headers: {
+            Authorization: `Bearer ${getToken}`,
+          },
+        }
+      );
+    } catch (error) {}
+  };
+
   useEffect(() => {
     getProject();
     getAllComments();
@@ -64,12 +77,7 @@ function ProjectDetailsPage() {
     filteredComments.splice(0, filteredComments.length);
     filterCommentsFunction();
   }
-  // useEffect(() => {
-  //    getAllComments();
 
-  // }, [allComments, project]);
-
-  // const filterData => ()
   return (
     <div className="ProjectDetailsPage">
       {project && (
@@ -94,10 +102,6 @@ function ProjectDetailsPage() {
           <button>Edit Project</button>
         </Link>
       )}
-
-      <Link to="/projects">
-        <button>Back to projects</button>
-      </Link>
     </div>
   );
 }
