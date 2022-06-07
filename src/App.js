@@ -1,5 +1,5 @@
 import "./App.css";
-import Navbar from "./components/Navbar";
+import NavbarComp from "./components/NavbarComp";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignupPage from "./pages/SignupPage";
@@ -10,11 +10,12 @@ import FeedPage from "./pages/FeedPage";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
 import ProfilePage from "./pages/ProfilePage";
 import EditProjectPage from "./pages/EditProjectPage";
+import { Navbar } from "react-bootstrap/Navbar";
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
+      <NavbarComp />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
