@@ -32,51 +32,49 @@ function SignupPage() {
   };
 
   return (
-    <div className="SignupPage">
-      <Card>
-        <Card.Header as="h4">Signup</Card.Header>
-        <Card.Body>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label htmlFor="username">Minecraft Username</Form.Label>
-              <Form.Control
-                type="text"
-                name="username"
-                value={username}
-                onChange={handleUsername}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="password">Password</Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                value={password}
-                onChange={handlePassword}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="userImage">Avatar</Form.Label>
-              <Form.Control
-                type="file"
-                alt="user image"
-                name="userImage"
-                value={userImage}
-                onChange={handleUserImage}
-              />
-            </Form.Group>
-            <Button variant="dark" type="submit">
-              Sign Up
-            </Button>
-          </Form>
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
-          <Card.Text>Already have an account?</Card.Text>
-          <Link to="/login">
-            <Button variant="dark">Login</Button>{" "}
-          </Link>
-        </Card.Body>
-      </Card>
-    </div>
+    <Card>
+      <Card.Header as="h4">Sign Up</Card.Header>
+      <Card.Body>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label htmlFor="username">Minecraft Username</Form.Label>
+            <Form.Control
+              type="text"
+              name="username"
+              value={username}
+              onChange={handleUsername}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label htmlFor="password">Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              value={password}
+              onChange={handlePassword}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label htmlFor="userImage">Avatar</Form.Label>
+            <Form.Control
+              type="file"
+              alt="user image"
+              name="userImage"
+              value={userImage}
+              onChange={handleUserImage}
+            />
+          </Form.Group>
+          <Button variant="dark" type="submit">
+            Sign Up
+          </Button>
+        </Form>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <Card.Text>Already have an account?</Card.Text>
+        <Link to="/login">
+          <Button variant="dark">Login</Button>{" "}
+        </Link>
+      </Card.Body>
+    </Card>
   );
 }
 

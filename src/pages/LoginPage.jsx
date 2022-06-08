@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import axios from "axios";
+import { Card, Form, Button } from "react-bootstrap";
 
 function LoginPage() {
   const [password, setPassword] = useState("");
@@ -34,31 +35,41 @@ function LoginPage() {
 
   return (
     <div className="LoginPage">
-      <h1>Login</h1>
+      <Card>
+        <Card.Header as="h4">Login</Card.Header>
+        <Card.Body>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label htmlFor="username">Minecraft Username</Form.Label>
+              <Form.Control
+                type="text"
+                name="username"
+                value={username}
+                onChange={handleUsername}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label htmlFor="password">Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                value={password}
+                onChange={handlePassword}
+              />
+            </Form.Group>
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Name</label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={handleUsername}
-        />
+            <Button variant="dark" type="submit">
+              Login
+            </Button>
+          </Form>
 
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        />
-
-        <button type="submit">Login</button>
-      </form>
-
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-      <p>Don't have an account?</p>
-      <Link to="/signup"> Sign up</Link>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <Card.Text>Don't have an account?</Card.Text>
+          <Link to="/signup">
+            <Button variant="dark">Sign Up</Button>{" "}
+          </Link>
+        </Card.Body>
+      </Card>
     </div>
   );
 }
