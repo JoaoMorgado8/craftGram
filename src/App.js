@@ -10,7 +10,6 @@ import FeedPage from "./pages/FeedPage";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
 import ProfilePage from "./pages/ProfilePage";
 import EditProjectPage from "./pages/EditProjectPage";
-import { Navbar } from "react-bootstrap/Navbar";
 
 function App() {
   return (

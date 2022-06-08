@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Card, Form, Button } from "react-bootstrap";
 
 function SignupPage() {
   const [password, setPassword] = useState("");
@@ -32,40 +33,49 @@ function SignupPage() {
 
   return (
     <div className="SignupPage">
-      <h1>Sign Up</h1>
-
-      <form onSubmit={handleSubmit} enctype="multipart/form-data">
-        <label htmlFor="username">Name</label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={handleUsername}
-        />
-
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        />
-
-        <label htmlFor="userImage">Avatar</label>
-        <input
-          type="file"
-          alt="user image"
-          name="userImage"
-          value={userImage}
-          onChange={handleUserImage}
-        />
-
-        <button type="submit">Sign Up</button>
-      </form>
-
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-      <p>Already have an account?</p>
-      <Link to="/login"> Login</Link>
+      <Card>
+        <Card.Header as="h4">Signup</Card.Header>
+        <Card.Body>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label htmlFor="username">Minecraft Username</Form.Label>
+              <Form.Control
+                type="text"
+                name="username"
+                value={username}
+                onChange={handleUsername}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label htmlFor="password">Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                value={password}
+                onChange={handlePassword}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label htmlFor="userImage">Avatar</Form.Label>
+              <Form.Control
+                type="file"
+                alt="user image"
+                name="userImage"
+                value={userImage}
+                onChange={handleUserImage}
+              />
+            </Form.Group>
+            <Button variant="dark" type="submit">
+              Sign Up
+            </Button>
+          </Form>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <Card.Text>Already have an account?</Card.Text>
+          <Link to="/login">
+            <Button variant="dark">Login</Button>{" "}
+          </Link>
+        </Card.Body>
+      </Card>
     </div>
   );
 }
