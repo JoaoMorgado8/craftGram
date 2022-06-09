@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Card,
   ListGroup,
@@ -14,7 +14,10 @@ const filteredComments = [];
 function ProjectDetailsPage() {
   const [project, setProject] = useState(null);
   const [allComments, setAllComments] = useState([]);
+  const [content, setContent] = useState("");
   const { projectId } = useParams();
+
+  const navigate = useNavigate();
 
   const getProject = async () => {
     try {
@@ -50,20 +53,6 @@ function ProjectDetailsPage() {
     }
   };
 
-  const createComment = async () => {
-    try {
-      const getToken = localStorage.getItem("authToken");
-      let response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/projects/${projectId}/comments`,
-        {
-          headers: {
-            Authorization: `Bearer ${getToken}`,
-          },
-        }
-      );
-    } catch (error) {}
-  };
-
   useEffect(() => {
     getProject();
     getAllComments();
@@ -86,11 +75,36 @@ function ProjectDetailsPage() {
     filterCommentsFunction();
   }
 
+  const handleComment = (e) => setContent(e.target.value);
+
+  const createComment = () => {
+    const body = { content };
+    const getToken = localStorage.getItem("authToken");
+    axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}/api/projects/${projectId}/comments`,
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${getToken}`,
+          },
+        }
+      )
+      .then(() => {
+        setContent("");
+        navigate(`/projects/${projectId}`);
+      })
+      .catch((err) => {
+        console.error(err);
+        // setErrorMessage(err.response.data.errorMessage);
+      });
+  };
+
   return (
     <div className="ProjectDetailsPage">
       {project && (
         <>
-          <Card style={{ width: "24rem" }} key={project._id}>
+          <Card style={{ width: "20rem" }} key={project._id}>
             <Card.Body>
               <Link to={`/projects/${project._id}`}>
                 <Card.Img variant="top" src={project.img} alt={project.name} />
@@ -121,8 +135,19 @@ function ProjectDetailsPage() {
         })}
 
       <Stack direction="horizontal" gap={3}>
-        <Form.Control className="me-auto" placeholder="Comment here..." />
-        <Button variant="dark">Submit</Button>
+        <Form variant="dark" type="submit">
+          <Form.Group
+            type="text"
+            name="comment"
+            value={content}
+            onChange={handleComment}
+          >
+            <Form.Control className="me-auto" placeholder="Comment here..." />
+          </Form.Group>
+          <Button variant="dark" onClick={createComment}>
+            Submit
+          </Button>
+        </Form>
       </Stack>
     </div>
   );

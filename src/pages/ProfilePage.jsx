@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import AddProject from "../components/AddProject";
-import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Card, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 function ProfilePage() {
   const [projects, setProjects] = useState([]);
 
@@ -33,7 +33,7 @@ function ProfilePage() {
         return (
           <Card
             className="bg-light"
-            style={{ width: "24rem" }}
+            style={{ width: "20rem" }}
             key={project._id}
           >
             <Card.Body className="bg-light">
@@ -49,7 +49,7 @@ function ProfilePage() {
             </ListGroup>
             <Card.Body>
               <Link to={`/projects/edit/${project._id}`}>
-                <button>Edit Project</button>
+                <Button variant="dark">Edit Project</Button>
               </Link>
             </Card.Body>
           </Card>

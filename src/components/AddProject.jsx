@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 //import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Card, Form, Button, InputGroup, FormControl } from "react-bootstrap";
+import { Card, Form, Button } from "react-bootstrap";
 
 function AddProject(props) {
   const [name, setName] = useState("");
