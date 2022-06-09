@@ -26,7 +26,6 @@ function AddProject(props) {
         },
       })
       .then((response) => {
-        console.log(response);
         setImg(response.data.fileUrl);
       })
       .catch((err) => console.log("Error while uploading the file: ", err));
