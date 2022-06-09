@@ -101,7 +101,8 @@ function EditProjectPage() {
 
   return (
     <div className="EditProjectPage">
-      <Card>
+      <br />
+      <Card className="mx-auto" style={{ width: "20rem" }}>
         <Card.Header>Edit the Project</Card.Header>
         <Card.Body>
           <Form onSubmit={handleSubmit}>
@@ -133,11 +134,16 @@ function EditProjectPage() {
               />
             </Form.Group>
 
-            <Button variant="dark" type="submit">
+            <Button variant="dark" style={{ width: "18rem" }} type="submit">
               Edit
             </Button>
           </Form>
-          <Button variant="danger" onClick={deleteProject}>
+          <br />
+          <Button
+            variant="danger"
+            style={{ width: "18rem" }}
+            onClick={deleteProject}
+          >
             Delete
           </Button>
         </Card.Body>

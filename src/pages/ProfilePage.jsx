@@ -49,7 +49,9 @@ function ProfilePage() {
             </ListGroup>
             <Card.Body>
               <Link to={`/projects/edit/${project._id}`}>
-                <Button variant="dark">Edit Project</Button>
+                <Button style={{ width: "18rem" }} variant="dark">
+                  Edit Project
+                </Button>
               </Link>
             </Card.Body>
           </Card>

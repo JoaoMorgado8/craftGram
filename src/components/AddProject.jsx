@@ -91,7 +91,7 @@ function AddProject(props) {
               />
             </Form.Group>
 
-            <Button variant="dark" type="submit">
+            <Button style={{ width: "18rem" }} variant="dark" type="submit">
               Add Project
             </Button>
           </Form>

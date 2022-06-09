@@ -153,7 +153,11 @@ function ProjectDetailsPage() {
             >
               <Form.Control className="me-auto" placeholder="Comment here..." />
             </Form.Group>
-            <Button variant="dark" onClick={createComment}>
+            <Button
+              variant="dark"
+              style={{ width: "20rem" }}
+              onClick={createComment}
+            >
               Submit
             </Button>
           </Form>
