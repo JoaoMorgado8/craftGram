@@ -32,7 +32,7 @@ function ProfilePage() {
       {projects.map((project) => {
         return (
           <Card
-            className="bg-light"
+            className="bg-light mx-auto"
             style={{ width: "20rem" }}
             key={project._id}
           >
@@ -55,6 +55,7 @@ function ProfilePage() {
           </Card>
         );
       })}
+      <br />
       <AddProject refreshProjects={getAllProjects} />
     </div>
   );

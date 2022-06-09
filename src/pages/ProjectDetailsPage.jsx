@@ -104,7 +104,11 @@ function ProjectDetailsPage() {
     <div className="ProjectDetailsPage">
       {project && (
         <>
-          <Card style={{ width: "20rem" }} key={project._id}>
+          <Card
+            className="mx-auto"
+            style={{ width: "20rem" }}
+            key={project._id}
+          >
             <Card.Body>
               <Link to={`/projects/${project._id}`}>
                 <Card.Img variant="top" src={project.img} alt={project.name} />
@@ -118,6 +122,7 @@ function ProjectDetailsPage() {
               <ListGroupItem>Category: {project.category}</ListGroupItem>
             </ListGroup>
           </Card>
+          <br />
         </>
       )}
 
@@ -125,30 +130,35 @@ function ProjectDetailsPage() {
         filteredComments.map((comment) => {
           return (
             <>
-              <ListGroup>
-                <ListGroupItem>
-                  {comment.author.username} says: {comment.content}
-                </ListGroupItem>
-              </ListGroup>
+              <Card className="mx-auto" style={{ width: "20rem" }}>
+                <ListGroup>
+                  <ListGroupItem>
+                    {comment.author.username} says: {comment.content}
+                  </ListGroupItem>
+                </ListGroup>
+              </Card>
+              <br />
             </>
           );
         })}
 
-      <Stack direction="horizontal" gap={3}>
-        <Form variant="dark" type="submit">
-          <Form.Group
-            type="text"
-            name="comment"
-            value={content}
-            onChange={handleComment}
-          >
-            <Form.Control className="me-auto" placeholder="Comment here..." />
-          </Form.Group>
-          <Button variant="dark" onClick={createComment}>
-            Submit
-          </Button>
-        </Form>
-      </Stack>
+      <Card className="mx-auto" style={{ width: "20rem" }}>
+        <Stack direction="horizontal" gap={3}>
+          <Form variant="dark" type="submit">
+            <Form.Group
+              type="text"
+              name="comment"
+              value={content}
+              onChange={handleComment}
+            >
+              <Form.Control className="me-auto" placeholder="Comment here..." />
+            </Form.Group>
+            <Button variant="dark" onClick={createComment}>
+              Submit
+            </Button>
+          </Form>
+        </Stack>
+      </Card>
     </div>
   );
 }

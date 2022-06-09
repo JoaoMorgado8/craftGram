@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 //import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Card, Form, Button } from "react-bootstrap";
+import { Card, Form, Button, InputGroup, FormControl } from "react-bootstrap";
 
 function AddProject(props) {
   const [name, setName] = useState("");
@@ -59,8 +59,8 @@ function AddProject(props) {
   };
 
   return (
-    <div className="AddProject">
-      <Card>
+    <>
+      <Card className="mx-auto" style={{ width: "20rem" }}>
         <Card.Header>Add Project</Card.Header>
         <Card.Body>
           <Form onSubmit={handleSubmit}>
@@ -97,7 +97,7 @@ function AddProject(props) {
           </Form>
         </Card.Body>
       </Card>
-    </div>
+    </>
   );
 }
 
