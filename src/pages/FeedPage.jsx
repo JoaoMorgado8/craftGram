@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-//import AddProject from "../components/AddProject";
-
+import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
 function FeedPage() {
   const [projects, setProjects] = useState([]);
 
@@ -31,14 +30,24 @@ function FeedPage() {
     <div className="ProjectListPage">
       {projects.map((project) => {
         return (
-          <div key={project._id} className="ProjectCard card">
-            <Link to={`/projects/${project._id}`}>
-              <h3>{project.name}</h3>
-              <p>{project.category}</p>
-              <img src={project.img} alt={project.name} />
-              <p>{project.comment}</p>
-            </Link>
-          </div>
+          <Card
+            className="bg-light"
+            style={{ width: "20rem" }}
+            key={project._id}
+          >
+            <Card.Body className="bg-light">
+              <Link to={`/projects/${project._id}`}>
+                <Card.Img variant="top" src={project.img} alt={project.name} />
+              </Link>
+            </Card.Body>
+
+            <Card.Body>
+              <Card.Title>{project.name}</Card.Title>
+            </Card.Body>
+            <ListGroup className="list-group-flush">
+              <ListGroupItem>Category: {project.category}</ListGroupItem>
+            </ListGroup>
+          </Card>
         );
       })}
     </div>

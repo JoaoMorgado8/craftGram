@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 //import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Card, Form, Button, InputGroup, FormControl } from "react-bootstrap";
 
 function AddProject(props) {
   const [name, setName] = useState("");
@@ -59,24 +60,43 @@ function AddProject(props) {
 
   return (
     <div className="AddProject">
-      <h3>Add Project</h3>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Build Name</label>
-        <input type="text" name="name" value={name} onChange={handleName} />
+      <Card>
+        <Card.Header>Add Project</Card.Header>
+        <Card.Body>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label htmlFor="name">Build Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="name"
+                value={name}
+                onChange={handleName}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label htmlFor="category">Category</Form.Label>
+              <Form.Control
+                type="text"
+                name="category"
+                value={category}
+                onChange={handleCategory}
+              />
+            </Form.Group>
+            <Form.Group controlId="formFile" className="mb-3">
+              <Form.Label htmlFor="img">Screenshot</Form.Label>
+              <Form.Control
+                type="file"
+                name="img"
+                onChange={handleFileUpload}
+              />
+            </Form.Group>
 
-        <label htmlFor="category">Category</label>
-        <input
-          type="text"
-          name="category"
-          value={category}
-          onChange={handleCategory}
-        />
-
-        <label htmlFor="img">Screenshot</label>
-        <input type="file" name="img" onChange={handleFileUpload} />
-
-        <button type="submit">Add Project</button>
-      </form>
+            <Button variant="dark" type="submit">
+              Add Project
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
     </div>
   );
 }

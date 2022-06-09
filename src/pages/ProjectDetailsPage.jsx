@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import {
+  Card,
+  ListGroup,
+  ListGroupItem,
+  Stack,
+  Form,
+  Button,
+} from "react-bootstrap";
 const filteredComments = [];
 
 function ProjectDetailsPage() {
@@ -82,9 +90,20 @@ function ProjectDetailsPage() {
     <div className="ProjectDetailsPage">
       {project && (
         <>
-          <h1>{project.name}</h1>
-          <p>{project.category}</p>
-          <img src={project.img} alt={project.name} />
+          <Card style={{ width: "24rem" }} key={project._id}>
+            <Card.Body>
+              <Link to={`/projects/${project._id}`}>
+                <Card.Img variant="top" src={project.img} alt={project.name} />
+              </Link>
+            </Card.Body>
+
+            <Card.Body>
+              <Card.Title>{project.name}</Card.Title>
+            </Card.Body>
+            <ListGroup className="list-group-flush">
+              <ListGroupItem>Category: {project.category}</ListGroupItem>
+            </ListGroup>
+          </Card>
         </>
       )}
 
@@ -92,16 +111,19 @@ function ProjectDetailsPage() {
         filteredComments.map((comment) => {
           return (
             <>
-              <h3>{comment.author.username}</h3>
-              <p>{comment.content}</p>
+              <ListGroup>
+                <ListGroupItem>
+                  {comment.author.username} says: {comment.content}
+                </ListGroupItem>
+              </ListGroup>
             </>
           );
         })}
-      {project && (
-        <Link to={`/projects/edit/${project._id}`}>
-          <button>Edit Project</button>
-        </Link>
-      )}
+
+      <Stack direction="horizontal" gap={3}>
+        <Form.Control className="me-auto" placeholder="Comment here..." />
+        <Button variant="dark">Submit</Button>
+      </Stack>
     </div>
   );
 }
