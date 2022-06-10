@@ -57,16 +57,20 @@ function LoginPage() {
                 onChange={handlePassword}
               />
             </Form.Group>
-
-            <Button variant="dark" type="submit">
+            <br />
+            <Button style={{ width: "20rem" }} variant="dark" type="submit">
               Login
             </Button>
           </Form>
 
           {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <br />
           <Card.Text>Don't have an account?</Card.Text>
+
           <Link to="/signup">
-            <Button variant="dark">Sign Up</Button>{" "}
+            <Button style={{ width: "20rem" }} variant="dark">
+              Sign Up
+            </Button>{" "}
           </Link>
         </Card.Body>
       </Card>

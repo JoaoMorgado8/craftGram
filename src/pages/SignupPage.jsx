@@ -64,14 +64,18 @@ function SignupPage() {
               onChange={handleUserImage}
             />
           </Form.Group>
-          <Button variant="dark" type="submit">
+          <br />
+          <Button style={{ width: "20rem" }} variant="dark" type="submit">
             Sign Up
           </Button>
         </Form>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <br />
         <Card.Text>Already have an account?</Card.Text>
         <Link to="/login">
-          <Button variant="dark">Login</Button>{" "}
+          <Button style={{ width: "20rem" }} variant="dark">
+            Login
+          </Button>{" "}
         </Link>
       </Card.Body>
     </Card>
